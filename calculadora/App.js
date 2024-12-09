@@ -142,3 +142,47 @@ export default function App() {
     </View>
   );
 }
+
+const styles = StyleSheet.create({
+    screen: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "white",
+    },
+    container: {
+      backgroundColor: "black",
+      width: 370,
+      height: 550,
+      borderRadius: 20,
+      padding: 10,
+      justifyContent: "flex-end",
+    },
+    result: {
+      color: "white",
+      fontSize: 48,
+      textAlign: "right",
+      marginBottom: 20,
+    },
+    row: {
+      flexDirection: "row",
+      justifyContent: "space-around",
+      marginBottom: 10,
+    },
+    button: {
+      backgroundColor: "#505050",
+      width: 70,
+      height: 70,
+      borderRadius: 35,
+      justifyContent: "center",
+      alignItems: "center",
+    },
+    operator: {
+      backgroundColor: "#FF9500",
+    },
+    text: {
+      color: "white",
+      fontSize: 28,
+    },
+});
+  
