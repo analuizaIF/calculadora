@@ -31,3 +31,114 @@ export default function App() {
     setOldNum(num.replace(",", "."));
     setNum("0");
   }
+
+  function calculate() {
+    if (oldNum !== null && operator !== null) {
+      const num1 = parseFloat(oldNum);
+      const num2 = parseFloat(num.replace(",", "."));
+      let result;
+
+      switch (operator) {
+        case "+":
+          result = num1 + num2;
+          break;
+        case "-":
+          result = num1 - num2;
+          break;
+        case "*":
+          result = num1 * num2;
+          break;
+        case "/":
+          if (num2 === 0) {
+            alert("Erro: divisão por zero!");
+            result = "0";
+          } else {
+            result = num1 / num2;
+          }
+          break;
+        default:
+          return;
+      }
+
+      setNum(String(result).replace(".", ","));
+      setOldNum(null);
+      setOperator(null);
+    }
+  }
+
+  return (
+    <View style={styles.screen}>
+      <View style={styles.container}>
+        <Text style={styles.result}>{num}</Text>
+        <View style={styles.row}>
+          <TouchableOpacity style={styles.button} onPress={clear}>
+            <Text style={styles.text}>AC</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={changeSign}>
+            <Text style={styles.text}>+/-</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.button} onPress={percentage}>
+            <Text style={styles.text}>%</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, styles.operator]}
+            onPress={() => handleOperator("/")}
+          >
+            <Text style={styles.text}>÷</Text>
+          </TouchableOpacity>
+        </View>
+        {/* Números e operadores */}
+        {[
+          [7, 8, 9, "*"],
+          [4, 5, 6, "-"],
+          [1, 2, 3, "+"],
+        ].map((row, rowIndex) => (
+          <View key={rowIndex} style={styles.row}>
+            {row.map((item, index) => (
+              <TouchableOpacity
+                key={index}
+                style={[
+                  styles.button,
+                  typeof item === "string" && styles.operator,
+                ]}
+                onPress={() =>
+                  typeof item === "number"
+                    ? inputNum(String(item))
+                    : handleOperator(item)
+                }
+              >
+                <Text style={styles.text}>{item}</Text>
+              </TouchableOpacity>
+            ))}
+          </View>
+        ))}
+        <View style={styles.row}>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => inputNum("0")}
+          >
+            <Text style={styles.text}>0</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => inputNum(",")}
+          >
+            <Text style={styles.text}>,</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={styles.button}
+            onPress={() => inputNum(".")}
+          >
+            <Text style={styles.text}>.</Text>
+          </TouchableOpacity>
+          <TouchableOpacity
+            style={[styles.button, styles.operator]}
+            onPress={calculate}
+          >
+            <Text style={styles.text}>=</Text>
+          </TouchableOpacity>
+        </View>
+      </View>
+    </View>
+  );
+}
